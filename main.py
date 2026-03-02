@@ -5,13 +5,21 @@ RED = "#e7305b"
 GREEN = "#9bdeac"
 YELLOW = "#f7f5dd"
 FONT_NAME = "Courier"
-WORK_MIN = 1
-SHORT_BREAK_MIN = 1
-LONG_BREAK_MIN = 1
+WORK_MIN = 25
+SHORT_BREAK_MIN = 5
+LONG_BREAK_MIN = 20
 tick = "✔"
 reps = 0
-
+timer = ""
 # ---------------------------- TIMER RESET ------------------------------- # 
+
+
+def reset():
+    window.after_cancel(timer)
+    timer_label.config(text="Timer", fg=GREEN)
+    canvas.itemconfig(timer_text,text="00:00")
+    tick_label.config(text="")
+
 
 # ---------------------------- TIMER MECHANISM ------------------------------- #
 
@@ -55,9 +63,18 @@ def countdown(count):
 
     canvas.itemconfig(timer_text,text=f"{count_min}:{count_sec}")
     if count > 0:
-        window.after(1000,countdown,count-1)
+       global timer
+       timer = window.after(1000,countdown,count-1)
     else:
         start_countdown()
+    global reps
+    mark = ""
+
+    for _ in range(reps//2):
+        mark += tick
+        tick_label.config(text=mark)
+
+
 
 
 
@@ -85,13 +102,13 @@ timer_label.grid(column=2, row=1)
 
 #start and reset button
 start_btn = Button(text="Start",command=start_countdown)
-reset_btn = Button(text="Reset")
+reset_btn = Button(text="Reset", command=reset)
 start_btn.grid(column=1,row=3)
 reset_btn.grid(column=3,row=3)
 
 
 #code for Pomodoro checkmark
-tick_label = Label(text=tick, fg= GREEN, bg=YELLOW, font=(FONT_NAME,15,"bold"))
+tick_label = Label(fg= GREEN, bg=YELLOW, font=(FONT_NAME,15,"bold"))
 tick_label.grid(column=2, row=4)
 
 
