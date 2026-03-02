@@ -4,7 +4,8 @@ A simple **Pomodoro timer desktop app** built with **Python + Tkinter**. It help
 
 ## Screenshot
 
-![Pomodoro Timer UI](./tomato.png)
+<img width="598" height="579" alt="Screenshot 2026-03-02 164336" src="https://github.com/user-attachments/assets/646b72d9-5dee-43fa-8d40-f612e9b02c27" />
+
 
 ## Features
 
